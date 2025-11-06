@@ -5,7 +5,7 @@
 - The products.csv is a modified version of this file: https://drive.google.com/uc?id=107Sqmt1sk6oGcKL_TwNVqz5wMJBavsoq&export=download
 
     Modifications: 
-    * replaced separator character from semicolon (;) to comma (,).
+    * replaced separator character from comma (,) to semicolon (;).
     * made duplicate entries.
     
     Related GithubRepo: https://github.com/datablist/sample-csv-files?tab=readme-ov-file
