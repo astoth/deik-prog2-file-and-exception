@@ -12,7 +12,7 @@ public interface FileService {
 
     List<Product> readFileByFileInputStream(String filePath) throws IOException;
 
-    List<Product> readFileByByteBuffer(String filePath) throws FileNotFoundException;
+    List<Product> readFileByBufferedReader(String filePath) throws FileNotFoundException;
 
     void writeFileByOutPutStream(String filePath, List<Product> products) throws FileNotFoundException;
 

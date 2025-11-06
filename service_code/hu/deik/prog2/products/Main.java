@@ -15,34 +15,62 @@ public class Main {
 
         List<Product> products = fileService.readFileByScanner("products.csv");
         products.forEach(System.out::println);
+        System.out.println("------------------------------");
+        System.out.println();
 
         List<Product> products2 = fileService.readFileByFileInputStream("products.csv");
         products2.forEach(System.out::println);
+        System.out.println("------------------------------");
+        System.out.println();
 
-        List<Product> products3 = fileService.readFileByByteBuffer("products.csv");
+        List<Product> products3 = fileService.readFileByBufferedReader("products.csv");
         products3.forEach(System.out::println);
+        System.out.println("------------------------------");
+        System.out.println();
 
-        System.out.println(products.equals(products2));
-        System.out.println(products.equals(products3));
-        System.out.println(products.size());
+        System.out.println("Azonos a products és products2 listák? :" + products.equals(products2));
+        System.out.println("Azonos a products és products3 listák? :" +products.equals(products3));
+        System.out.println("Products lista mérete: "+products.size());
 
         List<Product> uniqueProducts = Main.getUniqueProducts(products);
-        System.out.println(uniqueProducts.size() == products.size());
-        System.out.println(uniqueProducts.size());
-        System.out.println("-----");
-        List<Product> duplicatedProducts = Main.getProductsWithMultipleOccurrence(products);
-        duplicatedProducts.forEach(System.out::println);
+        System.out.println("Egyedi termékek lista mérete: " + uniqueProducts.size());
+        System.out.println("Egyforma az egyedi és teljes termék listák mérete? : " + (uniqueProducts.size() == products.size()));
+        System.out.println("------------------------------");
+        System.out.println();
 
-        System.out.println("Write duplicated products into a file.");
-        fileService.writeFileByOutPutStream("D:\\duplicated-products.csv", duplicatedProducts);
+        List<Product> duplicatedProducts = Main.getProductsWithMultipleOccurrence(products);
+        System.out.println("Duplikált termék rekordok:");
+        duplicatedProducts.forEach(System.out::println);
+        System.out.println("------------------------------");
+        System.out.println();
+
+        System.out.println("Duplikált termék rekordok kirása fájlba");
+        fileService.writeFileByOutPutStream("duplicated-products.csv", duplicatedProducts);
+        // "D:\\duplicated-products.csv" // Példa Windows esetére ha nem a projekt könyvtárba szeretnénk menteni
     }
 
     private static List<Product> getUniqueProducts(List<Product> products) {
-        return Collections.emptyList();
+        Set<Product> uniqueProducts = new LinkedHashSet<>(products);
+        return uniqueProducts.stream().toList();
     }
 
     private static List<Product> getProductsWithMultipleOccurrence(List<Product> products) {
-        return Collections.emptyList();
+        List<Product> productsWithMultipleOccurrence = new ArrayList<>();
+        Map<Product, Integer> productCounts = new HashMap<>();
+        for (Product product : products) {
+            if (!productCounts.containsKey(product)) {
+                productCounts.put(product, 1);
+            } else {
+                productCounts.put(product, productCounts.get(product) + 1);
+            }
+        }
+
+        productCounts.forEach((product, count) -> {
+            if (count > 1) {
+                productsWithMultipleOccurrence.add(product);
+            }
+        });
+        return productsWithMultipleOccurrence;
     }
 
 }
