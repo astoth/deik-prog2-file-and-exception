@@ -145,7 +145,7 @@ public class FileServiceImpl implements FileService {
         String ean = columns[8];
         String color = columns[9];
         String size = columns[10];
-        Boolean availability = Boolean.parseBoolean(columns[11]);
+        String availability = columns[11];
         Long internalID = Long.parseLong(columns[12].trim());
 
         return new Product(index, name, description, brand, category, price, currency, stock, ean, color, size, availability, internalID);

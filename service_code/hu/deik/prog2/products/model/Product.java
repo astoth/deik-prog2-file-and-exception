@@ -14,7 +14,7 @@ public record Product(
         String ean,
         String color,
         String size,
-        Boolean availability,
+        String availability,
         Long internalID
 ) {
 }
